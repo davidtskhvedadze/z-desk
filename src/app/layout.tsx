@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { NavBar, NavLink } from "@/components/NavBar";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -17,7 +18,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn("bg-background min-h-screen font-sans antialiased", inter.variable)}>{children}</body>
+      <body className={cn("bg-background min-h-screen font-sans antialiased", inter.variable)}>
+        <NavBar>
+          <NavLink href="/">Home</NavLink>
+          <NavLink href="/admin">Admin</NavLink>
+        </NavBar>
+        {children}
+      </body>
     </html>
   );
 }
