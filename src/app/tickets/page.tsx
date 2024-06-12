@@ -1,5 +1,5 @@
 export default function Page() {
     return (
-        <h1>Admin</h1>
+        <h1>Tickets</h1>
     );
 }

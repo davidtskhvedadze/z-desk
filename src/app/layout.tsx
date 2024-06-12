@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={cn("bg-background min-h-screen font-sans antialiased", inter.variable)}>
         <NavBar>
           <NavLink href="/">Home</NavLink>
-          <NavLink href="/admin">Admin</NavLink>
+          <NavLink href="/tickets">Tickets</NavLink>
         </NavBar>
         {children}
       </body>
