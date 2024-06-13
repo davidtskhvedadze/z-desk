@@ -22,12 +22,17 @@ const signSchema = z.object({
     })
   });
 
+  export type FormData = {
+    username: string;
+    password: string;
+  };
+
 export function SignIn() {
   const form = useForm<z.infer<typeof signSchema>>({
     resolver: zodResolver(signSchema)
   });
 
-    const handleSubmit = async (data: any) => {
+    const handleSubmit = async (data: FormData) => {
         try {
             const response = await fetch('/api/admin', {
                 method: 'POST',

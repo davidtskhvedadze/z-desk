@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { NavBar, NavLink } from "@/components/NavBar";
 import { Toaster } from "@/components/ui/toaster";
 import { SignIn } from "@/components/SignIn";
+import { SignOut } from "@/components/SignOut";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -28,7 +29,8 @@ export default function RootLayout({
             <NavLink href="/tickets">Tickets</NavLink>
           </div>
           <div className={cn("flex justify-end mr-8")}>
-            <SignIn />
+            <SignOut />
+            {/* <SignIn /> */}
           </div>
         </NavBar>
         <Toaster />
