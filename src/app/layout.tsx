@@ -21,8 +21,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn("bg-background min-h-screen font-sans antialiased", inter.variable)}>
         <NavBar>
-          <NavLink href="/">Home</NavLink>
-          <NavLink href="/tickets">Tickets</NavLink>
+          <div className={cn("flex justify-start")}>Z-Desk</div>
+          <div className="flex justify-center">
+            <NavLink href="/">Home</NavLink>
+            <NavLink href="/tickets">Tickets</NavLink>
+          </div>
+          <div className={cn("flex justify-end")}>Sign In</div>
         </NavBar>
         <Toaster />
         {children}

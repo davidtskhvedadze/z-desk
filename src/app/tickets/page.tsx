@@ -34,12 +34,28 @@ const [tickets, setTickets] = useState<Ticket[]>([]);
     }, []);
 
     return (
-        <>
         <div>
-           {tickets.map((ticket) => (
+            {tickets.map((ticket) => (
             <TicketCard key={ticket.id} {...ticket} />
-           ))}
+            ))}
         </div>
-        </>
     );
 }
+
+    
+{/* <>
+{!isSignedIn ? (
+<div>
+    <h1>Sign in to view tickets</h1>
+</div>
+) : (
+<div>
+    {tickets.map((ticket) => (
+    <TicketCard key={ticket.id} {...ticket} />
+    ))}
+</div>
+)}
+</> */}
+
+    
+    
