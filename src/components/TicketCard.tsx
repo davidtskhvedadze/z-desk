@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Accordion, AccordionContent, AccordionItem,AccordionTrigger } from "@radix-ui/react-accordion";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
 import { Textarea } from "./ui/textarea";
@@ -45,13 +46,32 @@ export function TicketCard(ticket: TicketCardProps) {
         console.log(data);
     }
 
+    const [status, setStatus] = useState(ticket.status);
+
+    const onStatusChange = (id: number, newStatus: string) => {  
+      console.log(id, newStatus);
+      fetch('/api/status', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id, status: newStatus }),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+          console.log(data);
+          setStatus(newStatus); // Update the local status state here
+      })
+      .catch((error) => console.error(error));
+  };
+
     return (
+      <div className={`p-4 rounded-md ${status === 'in progress' ? 'bg-orange-500' : status === 'resolved' ? 'bg-green-500' : ''}`} style={{backgroundColor: `rgba(${status === 'in progress' ? '255,165,0' : status === 'resolved' ? '0,128,0' : '192,192,192'}, 0.5)`}}>
     <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
             <AccordionTrigger onClick={() => {
-                form.setValue('status', ticket.status);
                 form.setValue('response', '');
             }}>{ticket.name}</AccordionTrigger>
             <AccordionContent>
@@ -61,9 +81,9 @@ export function TicketCard(ticket: TicketCardProps) {
                 return <FormItem>
                 <FormLabel>Ticket Status</FormLabel>
                 <FormControl>
-                  <Select value={field.value} onValueChange={field.onChange}>
+                 <Select value={status} onValueChange={(value) => { onStatusChange(ticket.id, value);}}>
                     <SelectTrigger>
-                      <SelectValue placeholder={field.value || 'Select status'}>{field.value}</SelectValue>
+                      <SelectValue placeholder={status || 'Select status'}>{status}</SelectValue>
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="new">new</SelectItem>
@@ -90,5 +110,6 @@ export function TicketCard(ticket: TicketCardProps) {
         </Accordion>
       </form>
     </Form>
+    </div>
     );
 };
