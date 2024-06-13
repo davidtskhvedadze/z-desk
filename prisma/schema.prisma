@@ -23,6 +23,7 @@ model Ticket {
   email String
   description String
   status String @default("new")
+  adminResponse String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
