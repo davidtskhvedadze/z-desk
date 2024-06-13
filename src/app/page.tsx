@@ -76,7 +76,7 @@ export default function Page() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
-      <h1 className="text-4xl">Submit a Ticket</h1>
+      <h1 className="text-4xl mb-12">Submit a Ticket</h1>
       <Form {...form}>
         <form className="max-w-md w-full flex flex-col gap-4 mb-4" onSubmit={form.handleSubmit(handleSubmit)}>
           <FormField control={form.control} name="name" render={({field}) => {
