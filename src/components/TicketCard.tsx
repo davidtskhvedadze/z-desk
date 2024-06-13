@@ -9,6 +9,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+import { useToast } from "@/components/ui/use-toast";
 
 export type TicketCardProps = {
     id: number;
@@ -35,6 +36,7 @@ const formSchema = z.object({
 export function TicketCard(ticket: TicketCardProps) {
 
   const [status, setStatus] = useState(ticket.status);
+  const { toast } = useToast();
   
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -45,7 +47,6 @@ export function TicketCard(ticket: TicketCardProps) {
       });
     
     const onSubmit = async (data: FormData) => {
-        console.log(data);
         fetch('/api/response', {
             method: 'POST',
             headers: {
@@ -55,7 +56,15 @@ export function TicketCard(ticket: TicketCardProps) {
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
+            toast({
+                title: 'Response submitted',
+                description: 'Your response has been submitted successfully!',
+            })
+            form.reset();
+            console.log(`
+              Hi ${ticket.name},
+              An admin has responded to your ticket:
+              ${data.message}`)
         })
         .catch((error) => console.error(error));
     }
@@ -63,7 +72,6 @@ export function TicketCard(ticket: TicketCardProps) {
    
 
     const onStatusChange = (id: number, newStatus: string) => {  
-      console.log(id, newStatus);
       fetch('/api/status', {
           method: 'POST',
           headers: {
@@ -73,7 +81,6 @@ export function TicketCard(ticket: TicketCardProps) {
       })
       .then((response) => response.json())
       .then((data) => {
-          console.log(data);
           setStatus(newStatus);
       })
       .catch((error) => console.error(error));

@@ -5,21 +5,34 @@ const prisma = new PrismaClient();
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => { 
     const { id, response } = req.body;
-
     try {
-        const ticket = await prisma.ticket.update({
-            where: {
-                id,
-            },
+        const newResponse = await prisma.response.create({
             data: {
-                response,
+                message: response,
+                ticket: {
+                    connect: {
+                        id: id,
+                    },
+                },
             },
         });
-        res.json(ticket);
+
+
+        const ticket = await prisma.ticket.findUnique({
+            where: {
+                id: id,
+            },
+            include: {
+                responses: true,
+            },
+        });
+
+        res.json(newResponse);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while updating the ticket.' });
     }
+
 };
 
 export default handler;
