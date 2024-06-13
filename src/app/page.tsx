@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Terminal } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 
 const formSchema = z.object({
@@ -28,6 +29,7 @@ const formSchema = z.object({
 
 export default function Page() {
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,7 +42,7 @@ export default function Page() {
 
     const handleSubmit = async (data: z.infer<typeof formSchema>) => {
       try {
-        const response = await fetch("/api/tickets", {
+        const response = await fetch("/api/submit", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -56,8 +58,18 @@ export default function Page() {
         const ticket = await response.json();
         form.reset();
         setErrorMessages([]);
+        toast({
+          title: "Ticket submitted",
+          description: "Your ticket has been submitted successfully!",
+          duration: 5000,
+        });
       } catch (error) {
         console.error(error);
+        toast({
+          title: "Ticket Failed to submit",
+          description: "An error occurred while submitting the ticket. Please try again.",
+          duration: 5000,
+        });
     }
     };
 

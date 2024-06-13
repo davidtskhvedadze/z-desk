@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { NavBar, NavLink } from "@/components/NavBar";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
           <NavLink href="/">Home</NavLink>
           <NavLink href="/tickets">Tickets</NavLink>
         </NavBar>
+        <Toaster />
         {children}
       </body>
     </html>
