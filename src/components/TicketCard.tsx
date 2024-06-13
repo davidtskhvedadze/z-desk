@@ -34,6 +34,8 @@ const formSchema = z.object({
   
 export function TicketCard(ticket: TicketCardProps) {
 
+  const [status, setStatus] = useState(ticket.status);
+  
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -44,9 +46,21 @@ export function TicketCard(ticket: TicketCardProps) {
     
     const onSubmit = async (data: FormData) => {
         console.log(data);
+        fetch('/api/response', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: ticket.id, response: data.response }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+        })
+        .catch((error) => console.error(error));
     }
 
-    const [status, setStatus] = useState(ticket.status);
+   
 
     const onStatusChange = (id: number, newStatus: string) => {  
       console.log(id, newStatus);
@@ -60,7 +74,7 @@ export function TicketCard(ticket: TicketCardProps) {
       .then((response) => response.json())
       .then((data) => {
           console.log(data);
-          setStatus(newStatus); // Update the local status state here
+          setStatus(newStatus);
       })
       .catch((error) => console.error(error));
   };
