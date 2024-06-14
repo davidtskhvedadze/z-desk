@@ -10,6 +10,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { useToast } from "@/components/ui/use-toast";
+import DownArrow from "../../public/down-arrow-svgrepo-com.svg";
+import Image from 'next/image';
 
 export type TicketCardProps = {
     id: number;
@@ -87,50 +89,50 @@ export function TicketCard(ticket: TicketCardProps) {
   };
 
     return (
-      <div className={`p-4 rounded-md ${status === 'in progress' ? 'bg-orange-500' : status === 'resolved' ? 'bg-green-500' : ''}`} style={{backgroundColor: `rgba(${status === 'in progress' ? '255,165,0' : status === 'resolved' ? '0,128,0' : '192,192,192'}, 0.5)`}}>
-    <Form {...form}>
+      <div className={`max-w-lg mx-auto p-4 rounded-md shadow-lg ${status === 'in progress' ? 'bg-orange-500 bg-opacity-50' : status === 'resolved' ? 'bg-green-500 bg-opacity-50' : 'bg-gray-300'}`}>
+      <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Accordion type="single" collapsible>
-          <AccordionItem value="item-1">
-            <AccordionTrigger onClick={() => {
+          <Accordion type="single" collapsible>
+            <AccordionItem value="item-1">
+              <AccordionTrigger onClick={() => {
                 form.setValue('response', '');
-            }}>{ticket.name}</AccordionTrigger>
-            <AccordionContent>
-              <p>Email: {ticket.email}</p>
-              <p>Summary: {ticket.description}</p>
-              <FormField control={form.control} name="status" render={({field}) => {
-                return <FormItem>
-                <FormLabel>Ticket Status</FormLabel>
-                <FormControl>
-                 <Select value={status} onValueChange={(value) => { onStatusChange(ticket.id, value);}}>
-                    <SelectTrigger>
-                      <SelectValue placeholder={status || 'Select status'}>{status}</SelectValue>
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="new">new</SelectItem>
-                      <SelectItem value="in progress">in progress</SelectItem>
-                      <SelectItem value="resolved">resolved</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  </FormControl>
-                  </FormItem>
-                 }}
-                 />
+              }} className="font-bold text-xl text-center w-full flex justify-center items-center">{ticket.name}
+               <Image src={DownArrow} alt="Down arrow" className="ml-auto w-5 h-5" /> {/* Adjust ml-2 as needed */}
+               </AccordionTrigger>
+              <AccordionContent className="mt-4">
+              <p className="text-sm text-gray-900 mt-2 bg-yellow-100 p-2 rounded">Email: {ticket.email}</p>
+              <p className="text-sm text-gray-900 mt-4 bg-yellow-100 p-2 rounded">Summary: {ticket.description}</p>
+                <FormField control={form.control} name="status" render={({field}) => {
+                  return (
+                    <div className="mt-4">
+                      <FormLabel className="block text-sm font-medium text-gray-700">Ticket Status</FormLabel>
+                      <Select value={status} onValueChange={(value) => { onStatusChange(ticket.id, value);}} >
+                        <SelectTrigger>
+                          <SelectValue placeholder={status || 'Select status'}>{status}</SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="new">new</SelectItem>
+                          <SelectItem value="in progress">in progress</SelectItem>
+                          <SelectItem value="resolved">resolved</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  );
+                }} />
                 <FormField control={form.control} name="response" render={({field}) => {
-                return <FormItem>
-                <FormControl>
-                    <Textarea placeholder="Respond to ticket..." {...field}/>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-                }}
-                />
-              <Button type="submit">Submit</Button>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </form>
-    </Form>
+                  return (
+                    <div className="mt-4">
+                      <Textarea placeholder="Respond to ticket..." {...field} className="mt-1 block w-full"/>
+                      <FormMessage />
+                    </div>
+                  );
+                }} />
+                <Button type="submit" className="mt-4 w-full py-2 px-4 rounded">Submit</Button>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </form>
+      </Form>
     </div>
     );
 };
