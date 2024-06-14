@@ -44,6 +44,7 @@ export default function RootLayout({
   };
 
   useEffect(() => {
+    session();
     events.on('sessionChanged', session);
 
     return () => {
