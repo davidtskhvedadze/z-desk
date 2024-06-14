@@ -82,7 +82,7 @@ const ticketsPerPage = 5;
                 currentTickets.map((ticket) => (
                   <TableRow key={ticket.id}>
                     <TableCell>
-                      <TicketCard {...ticket} />
+                      <TicketCard {...ticket} fetchTickets={fetchTickets} />
                     </TableCell>
                   </TableRow>
                 ))

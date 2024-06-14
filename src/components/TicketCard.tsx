@@ -12,6 +12,18 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/components/ui/use-toast";
 import DownArrow from "../../public/down-arrow-svgrepo-com.svg";
 import Image from 'next/image';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
 
 export type TicketCardProps = {
     id: number;
@@ -19,6 +31,7 @@ export type TicketCardProps = {
     email: string;
     description: string;
     status: string;
+    fetchTickets: () => void;
 };
 
 export type FormData = {
@@ -35,7 +48,7 @@ const formSchema = z.object({
     }),
   });
   
-export function TicketCard(ticket: TicketCardProps) {
+export function TicketCard({fetchTickets, ...ticket}: TicketCardProps) {
 
   const [status, setStatus] = useState(ticket.status);
   const { toast } = useToast();
@@ -128,6 +141,40 @@ export function TicketCard(ticket: TicketCardProps) {
                   );
                 }} />
                 <Button type="submit" className="mt-4 w-full py-2 px-4 rounded">Submit</Button>
+                <AlertDialog>
+                  <AlertDialogTrigger type="button" className="mt-4 w-full py-2 px-4 rounded rounded bg-red-500 hover:bg-red-600 text-white">
+                    Delete
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action cannot be undone. This will permanently delete this ticket and remove its data from our servers.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={() => {
+                        fetch(`/api/delete`, {
+                          method: 'DELETE',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify({ id: ticket.id }),
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
+                          fetchTickets();
+                          toast({
+                            title: 'Ticket deleted',
+                            description: 'The ticket has been deleted successfully!',
+                          });
+                        })
+                        .catch((error) => console.error(error));
+                      }}>Continue</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
