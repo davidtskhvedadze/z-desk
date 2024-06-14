@@ -5,7 +5,6 @@ const prisma = new PrismaClient();
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { id, status } = req.body;
-    console.log(id, status);
 
     try {
         const ticket = await prisma.ticket.update({
