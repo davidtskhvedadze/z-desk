@@ -89,7 +89,7 @@ export function TicketCard(ticket: TicketCardProps) {
   };
 
     return (
-      <div className={`max-w-lg mx-auto p-4 rounded-md shadow-lg ${status === 'in progress' ? 'bg-orange-500 bg-opacity-50' : status === 'resolved' ? 'bg-green-500 bg-opacity-50' : 'bg-gray-300'}`}>
+      <div className={`max-w-md mx-auto p-4 rounded-md shadow-lg ${status === 'in progress' ? 'bg-orange-500 bg-opacity-50' : status === 'resolved' ? 'bg-green-500 bg-opacity-50' : 'bg-gray-300'}`}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <Accordion type="single" collapsible>
@@ -97,7 +97,7 @@ export function TicketCard(ticket: TicketCardProps) {
               <AccordionTrigger onClick={() => {
                 form.setValue('response', '');
               }} className="font-bold text-xl text-center w-full flex justify-center items-center">{ticket.name}
-               <Image src={DownArrow} alt="Down arrow" className="ml-auto w-5 h-5" /> {/* Adjust ml-2 as needed */}
+               <Image src={DownArrow} alt="Down arrow" className="ml-auto w-5 h-5" />
                </AccordionTrigger>
               <AccordionContent className="mt-4">
               <p className="text-sm text-gray-900 mt-2 bg-yellow-100 p-2 rounded">Email: {ticket.email}</p>

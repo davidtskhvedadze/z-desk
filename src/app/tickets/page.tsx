@@ -4,14 +4,22 @@ import { TicketCard } from "@/components/TicketCard";
 import { useState, useEffect } from "react";
 import { useHasToken } from "../layout";
 import { InvalidPage } from "@/components/InvalidPage";
-import { cn } from "@/lib/utils";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+  } from "@/components/ui/pagination"
+  
+
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
-    TableHeader,
     TableRow,
   } from "@/components/ui/table"
 
@@ -32,6 +40,8 @@ export type Ticket = {
 export default function Page() {
 const { hasToken } = useHasToken();
 const [tickets, setTickets] = useState<Ticket[]>([]);
+const [currentPage, setCurrentPage] = useState(1);
+const ticketsPerPage = 5;
 
  const fetchTickets = async () => {
         const response = await fetch("/api/tickets");
@@ -48,22 +58,64 @@ const [tickets, setTickets] = useState<Ticket[]>([]);
         }
     }, [hasToken]);
 
+    const indexOfLastTicket = currentPage * ticketsPerPage;
+    const indexOfFirstTicket = indexOfLastTicket - ticketsPerPage;
+    const currentTickets = tickets.slice(indexOfFirstTicket, indexOfLastTicket);
+
+    const totalPages = Math.ceil(tickets.length / ticketsPerPage);
+
     return (
-        <div>
-            {hasToken ? (
-                <Table>
-                    <TableBody>
-                        {tickets.map((ticket) => (
-                            <TableRow key={ticket.id}>
-                                <TableCell><TicketCard {...ticket} /></TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            ) : (
-                <InvalidPage />
-            )}
-        </div>
+<div className="flex flex-col justify-center items-center min-h-screen">
+      {hasToken ? (
+        <>
+          <h1 className="text-4xl font-bold text-center mb-4 mt-4">Tickets</h1>
+          <div className="w-full max-w-sm border-2 border-gray-300 rounded-md overflow-hidden my-4">
+            <Table>
+              <TableBody>
+                {currentTickets.map((ticket) => (
+                  <TableRow key={ticket.id}>
+                    <TableCell>
+                      <TicketCard {...ticket} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          <div className="flex justify-center items-center my-4 mr-4">
+            <Pagination>
+              <PaginationPrevious
+                isActive={currentPage !== 1}
+                onClick={() => {
+                  if (currentPage > 1) {
+                    setCurrentPage(currentPage - 1);
+                  }
+                }}
+              />
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <PaginationLink
+                  key={page}
+                  isActive={page === currentPage}
+                  onClick={() => setCurrentPage(page)}
+                >
+                  {page}
+                </PaginationLink>
+              ))}
+              <PaginationNext
+                isActive={currentPage !== totalPages}
+                onClick={() => {
+                  if (currentPage < totalPages) {
+                    setCurrentPage(currentPage + 1);
+                  }
+                }}
+              />
+            </Pagination>
+          </div>
+        </>
+      ) : (
+        <InvalidPage />
+      )}
+    </div>
     );
 }
 
