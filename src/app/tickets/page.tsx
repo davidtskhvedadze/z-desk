@@ -72,13 +72,21 @@ const ticketsPerPage = 5;
           <div className="w-full max-w-sm border-2 border-gray-300 rounded-md overflow-hidden my-4">
             <Table>
               <TableBody>
-                {currentTickets.map((ticket) => (
+              {currentTickets.length === 0 ? (
+                <TableRow>
+                  <TableCell>
+                  <p className="italic text-center py-2">No tickets available</p>
+                  </TableCell>
+                </TableRow>
+              ) : (
+                currentTickets.map((ticket) => (
                   <TableRow key={ticket.id}>
                     <TableCell>
                       <TicketCard {...ticket} />
                     </TableCell>
                   </TableRow>
-                ))}
+                ))
+              )}
               </TableBody>
             </Table>
           </div>
