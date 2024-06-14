@@ -6,8 +6,9 @@ import { cn } from "@/lib/utils";
 import { NavBar, NavLink } from "@/components/NavBar";
 import { Toaster } from "@/components/ui/toaster";
 import { SignIn } from "@/components/SignIn";
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { SignOut } from "@/components/SignOut";
+import { useEvents } from "@/context/eventsContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -16,25 +17,30 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [hasToken, setHasToken] = useState(false);
+  const events = useEvents();
 
-  const [token, setToken] = useState(null);
+  const session = async () => {
+    try {
+      const response = await fetch('/api/session');
+      const data = await response.json();
+      if(data.message === 'Token exists') {
+        setHasToken(true);
+      } else {
+        setHasToken(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    const getSession = async () => {
-      try {
-        const response = await fetch('/api/getSession');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setToken(data.token);
-      } catch (error) {
-        console.error('Failed to get session:', error);
-      }
+    events.on('sessionChanged', session);
+
+    return () => {
+      events.off('sessionChanged', session);
     };
-  
-    getSession();
-  }, [token]);
+  }, [events]);
 
   return (
     <html lang="en">
@@ -46,12 +52,7 @@ export default function RootLayout({
             <NavLink href="/tickets">Tickets</NavLink>
           </div>
           <div className={cn("flex justify-end mr-8")}>
-          {token && (
-            <SignOut />
-          )}
-          {!token && (
-            <SignIn />
-          )}
+            {hasToken ? <SignOut /> : <SignIn />}
           </div>
         </NavBar>
         <Toaster />

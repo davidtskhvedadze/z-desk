@@ -9,6 +9,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from "./ui/button";
 import { toast } from "./ui/use-toast";
+import React from "react";
+import { useEvents } from "@/context/eventsContext";
 
 const signSchema = z.object({
     username: z.string().min(1, { 
@@ -24,7 +26,7 @@ const signSchema = z.object({
   });
 
 export function SignIn() {
-
+  const events = useEvents();
 
   const form = useForm<z.infer<typeof signSchema>>({
     resolver: zodResolver(signSchema)
@@ -49,6 +51,11 @@ export function SignIn() {
         })
         throw new Error('Failed to sign in');
       }
+      events.emit('sessionChanged');
+      toast({
+        title: 'Signed in',
+        description: 'You have successfully signed in',
+      })
 
     } catch (error) {
       console.error(error);

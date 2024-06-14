@@ -1,7 +1,15 @@
 
+import React from "react";
 import { toast } from "./ui/use-toast";
+import { useEvents } from "@/context/eventsContext";
 
-    const handleSignOut = async () => {
+
+
+export function SignOut() {
+   const events = useEvents();
+
+   const handleSignOut = async () => {
+        
         try {
           const response = await fetch('/api/signout', {
             method: 'POST',
@@ -16,6 +24,7 @@ import { toast } from "./ui/use-toast";
             })
             return;
           }
+          events.emit('sessionChanged');
           toast({
             title: 'Signed out',
             description: 'You have successfully signed out',
@@ -25,7 +34,6 @@ import { toast } from "./ui/use-toast";
         }
       }
 
-export function SignOut() {
     return (
         <div className="mr-4 cursor-pointer" onClick={handleSignOut}>Sign Out</div>
     );
