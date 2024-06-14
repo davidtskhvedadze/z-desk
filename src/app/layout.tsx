@@ -6,11 +6,20 @@ import { cn } from "@/lib/utils";
 import { NavBar, NavLink } from "@/components/NavBar";
 import { Toaster } from "@/components/ui/toaster";
 import { SignIn } from "@/components/SignIn";
-import React, { useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { SignOut } from "@/components/SignOut";
 import { useEvents } from "@/context/eventsContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+
+const HasTokenContext = createContext({
+  hasToken: false,
+  setHasToken: (hasToken: boolean) => {},
+});
+
+export const useHasToken = () => {
+  return useContext(HasTokenContext);
+};
 
 export default function RootLayout({
   children,
@@ -43,6 +52,7 @@ export default function RootLayout({
   }, [events]);
 
   return (
+    <HasTokenContext.Provider value={{ hasToken, setHasToken }}>
     <html lang="en">
       <body className={cn("bg-background min-h-screen font-sans antialiased", inter.variable)}>
         <NavBar>
@@ -59,5 +69,6 @@ export default function RootLayout({
         {children}
       </body>
     </html>
+    </HasTokenContext.Provider>
   );
 }

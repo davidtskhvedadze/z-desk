@@ -2,6 +2,7 @@
 
 import { TicketCard } from "@/components/TicketCard";
 import { useState, useEffect } from "react";
+import { useHasToken } from "../layout";
 
 
  enum TicketStatus {
@@ -18,6 +19,7 @@ export type Ticket = {
 };
 
 export default function Page() {
+const { hasToken } = useHasToken();
 const [tickets, setTickets] = useState<Ticket[]>([]);
 
  const fetchTickets = async () => {
@@ -30,32 +32,24 @@ const [tickets, setTickets] = useState<Ticket[]>([]);
  };
 
     useEffect(() => {
-        fetchTickets();
-    }, []);
+        if (hasToken) {
+            fetchTickets();
+        }
+    }, [hasToken]);
 
     return (
         <div>
-            {tickets.map((ticket) => (
-            <TicketCard key={ticket.id} {...ticket} />
-            ))}
+            {hasToken ? (
+                tickets.map((ticket) => (
+                    <TicketCard key={ticket.id} {...ticket} />
+                ))
+            ) : (
+                <p>You need to sign in to view tickets.</p>
+            )}
         </div>
     );
 }
 
-    
-{/* <>
-{!isSignedIn ? (
-<div>
-    <h1>Sign in to view tickets</h1>
-</div>
-) : (
-<div>
-    {tickets.map((ticket) => (
-    <TicketCard key={ticket.id} {...ticket} />
-    ))}
-</div>
-)}
-</> */}
 
     
     
