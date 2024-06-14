@@ -3,6 +3,7 @@
 import { TicketCard } from "@/components/TicketCard";
 import { useState, useEffect } from "react";
 import { useHasToken } from "../layout";
+import { InvalidPage } from "@/components/InvalidPage";
 
 
  enum TicketStatus {
@@ -44,7 +45,7 @@ const [tickets, setTickets] = useState<Ticket[]>([]);
                     <TicketCard key={ticket.id} {...ticket} />
                 ))
             ) : (
-                <p>You need to sign in to view tickets.</p>
+                <InvalidPage />
             )}
         </div>
     );
