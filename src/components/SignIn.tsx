@@ -1,7 +1,8 @@
-"use client";
+"use client"
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger,} from "@/components/ui/dropdown-menu";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+
 import { Input } from "@/components/ui/input";
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -22,46 +23,39 @@ const signSchema = z.object({
     })
   });
 
-  export type FormData = {
-    username: string;
-    password: string;
-  };
-
 export function SignIn() {
+
 
   const form = useForm<z.infer<typeof signSchema>>({
     resolver: zodResolver(signSchema)
   });
 
-    const handleSubmit = async (data: FormData) => {
-        try {
-            const response = await fetch('/api/admin', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
+  const handleSubmit = async (data: z.infer<typeof signSchema>) => {
+    try {
+      const response = await fetch('/api/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          credentials: 'include'
+        },
+        body: JSON.stringify(data)
+      });
 
-            if (response.ok) {
-                const user = await response.json();
-                toast({
-                    title: 'Admin authenticated',
-                    description: 'You have successfully signed in'
-                });
-                form.reset();
+      if (!response.ok) {
+        const errorData = await response.json();
+        toast({
+          title: 'Failed to sign in',
+          description: errorData.message,
+        })
+        throw new Error('Failed to sign in');
+      }
 
-            } else {
-                const errorData = await response.json();
-                toast({
-                    title: 'Failed to sign in',
-                    description: errorData.message
-                })
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    } catch (error) {
+      console.error(error);
+    }
+
+
+  }
 
 return (
     <DropdownMenu>

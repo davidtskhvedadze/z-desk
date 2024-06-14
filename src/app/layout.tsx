@@ -1,24 +1,41 @@
-import type { Metadata } from "next";
+"use client"
+
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { NavBar, NavLink } from "@/components/NavBar";
 import { Toaster } from "@/components/ui/toaster";
 import { SignIn } from "@/components/SignIn";
+import React, { useState, useEffect } from 'react';
 import { SignOut } from "@/components/SignOut";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-
-export const metadata: Metadata = {
-  title: "Zealthy Help Desk",
-  description: "Help Desk application for Zealthy.",
-};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const getSession = async () => {
+      try {
+        const response = await fetch('/api/getSession');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setToken(data.token);
+      } catch (error) {
+        console.error('Failed to get session:', error);
+      }
+    };
+  
+    getSession();
+  }, [token]);
+
   return (
     <html lang="en">
       <body className={cn("bg-background min-h-screen font-sans antialiased", inter.variable)}>
@@ -29,8 +46,12 @@ export default function RootLayout({
             <NavLink href="/tickets">Tickets</NavLink>
           </div>
           <div className={cn("flex justify-end mr-8")}>
+          {token && (
             <SignOut />
-            {/* <SignIn /> */}
+          )}
+          {!token && (
+            <SignIn />
+          )}
           </div>
         </NavBar>
         <Toaster />
