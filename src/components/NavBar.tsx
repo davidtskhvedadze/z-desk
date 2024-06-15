@@ -7,7 +7,7 @@ import { ComponentProps, ReactNode } from "react";
 
 export function NavBar({ children }: { children: ReactNode }) {
     return (
-        <nav className="bg-primary text-primary-foreground flex items-center justify-between px-4">{children}</nav>
+        <nav className="grid grid-cols-3 bg-primary text-primary-foreground flex items-center justify-between px-4">{children}</nav>
     )
 };
 

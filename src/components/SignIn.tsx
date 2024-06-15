@@ -66,7 +66,7 @@ export function SignIn() {
 
 return (
     <DropdownMenu>
-      <DropdownMenuTrigger>Sign in</DropdownMenuTrigger>
+      <DropdownMenuTrigger className="w-20">Sign in</DropdownMenuTrigger>
       <DropdownMenuContent className="mr-4">
         <DropdownMenuLabel>Sign in</DropdownMenuLabel>
         <DropdownMenuSeparator />
