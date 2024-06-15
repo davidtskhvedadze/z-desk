@@ -4,24 +4,8 @@ import { TicketCard } from "@/components/TicketCard";
 import { useState, useEffect } from "react";
 import { useHasToken } from "../layout";
 import { InvalidPage } from "@/components/InvalidPage";
-import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-  } from "@/components/ui/pagination"
-  
-
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-  } from "@/components/ui/table"
+import { Pagination, PaginationLink, PaginationNext, PaginationPrevious} from "@/components/ui/pagination"
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 
 
  enum TicketStatus {

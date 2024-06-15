@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { EventEmitter } from 'events';
 
 const EventsContext = createContext(new EventEmitter());

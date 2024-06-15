@@ -1,5 +1,3 @@
-
-
 import Image from "next/image";
 import UnAuthorizedLogo from "../../public/unauthorized-user-access-svgrepo-com.svg"
 
