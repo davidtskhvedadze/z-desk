@@ -23,11 +23,10 @@ Z-Desk is a help desk application designed to streamline customer service and im
 - Loading spinner for improved user experience during data fetch
 
 ## Notes
-- Admin credentials: 
 - Username: `admin`
 - Password: `password123`
-- The application displays 5 tickets per page for optimal readability. Additional tickets are accessible via the pagination feature.
-- The user interface and styling leverage the `shadcn/ui` library for a modern and responsive design.
+- The application displays 5 tickets per page for optimal readability. Additional tickets are accessible via the pagination feature
+- The user interface and styling leverage the `shadcn/ui` library for a modern and responsive design
 
 
 ## Installation
@@ -36,9 +35,9 @@ Z-Desk is a help desk application designed to streamline customer service and im
 2. Access the directory: `cd zealthy-help-desk`
 3. Install the dependencies: `npm install`
 4. Start the server: `npm run dev`
-5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser
 6. Add `JWT_SECRET` key to `.env`
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change
