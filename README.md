@@ -6,7 +6,7 @@ Z-Desk is a help desk application designed to streamline customer service and im
 
 ## Tech Stack
 <div align="center">
-    <img src="https://skillicons.dev/icons?i=typescript,react,nextjs,tailwindcss,prisma,postgres" alt="My Skills">
+    <img src="https://skillicons.dev/icons?i=typescript,react,nextjs,tailwindcss,prisma,postgres,supabase" alt="My Skills">
 </div>
 
 ## Features
