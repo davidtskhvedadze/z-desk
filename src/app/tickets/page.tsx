@@ -67,10 +67,11 @@ const ticketsPerPage = 5;
     const totalPages = Math.ceil(tickets.length / ticketsPerPage);
 
     return (
-<div className="flex flex-col justify-center items-center min-h-screen">
+<div className="flex flex-col justify-center items-center min-h-screen animate-fadeIn">
       {hasToken ? (
         <>
           <h1 className="text-4xl font-bold text-center mb-4 mt-4">Tickets</h1>
+          <div className="flex flex-col w-full items-center animate-slideUp">
           <div className="w-full max-w-sm border-2 border-gray-300 rounded-md overflow-hidden my-4">
             <Table>
               <TableBody>
@@ -120,6 +121,7 @@ const ticketsPerPage = 5;
                 }}
               />
             </Pagination>
+          </div>
           </div>
         </>
       ) : (
