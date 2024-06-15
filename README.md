@@ -6,7 +6,7 @@ Z-Desk is a help desk application designed to streamline customer service and im
 
 ## Tech Stack
 <div align="center">
-    <img src="https://skillicons.dev/icons?i=typescript,react,nextjs,tailwindcss,prisma,sqlite" alt="My Skills">
+    <img src="https://skillicons.dev/icons?i=typescript,react,nextjs,tailwindcss,prisma,postgres" alt="My Skills">
 </div>
 
 ## Features
@@ -36,7 +36,7 @@ Z-Desk is a help desk application designed to streamline customer service and im
 3. Install the dependencies: `npm install`
 4. Start the server: `npm run dev`
 5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser
-6. Add `JWT_SECRET` key to `.env`
+6. Add `JWT_SECRET` & `DATABASE_URL` keys to `.env`
 
 ## Contributing
 
