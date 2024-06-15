@@ -37,7 +37,3 @@ Z-Desk is a help desk application designed to streamline customer service and im
 4. Start the server: `npm run dev`
 5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser
 6. Add `JWT_SECRET` & `DATABASE_URL` keys to `.env`
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change
