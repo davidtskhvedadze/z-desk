@@ -44,7 +44,9 @@ const [currentPage, setCurrentPage] = useState(1);
 const ticketsPerPage = 5;
 
  const fetchTickets = async () => {
-        const response = await fetch("/api/tickets");
+      const response = await fetch("/api/tickets", {
+        credentials: 'include', // Include cookies in the request
+      });
         if (!response.ok) {
             throw new Error("Failed to fetch tickets");
         }

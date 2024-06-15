@@ -67,6 +67,7 @@ export function TicketCard({fetchTickets, ...ticket}: TicketCardProps) {
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include',
             body: JSON.stringify({ id: ticket.id, response: data.response }),
         })
         .then((response) => response.json())
@@ -92,6 +93,7 @@ export function TicketCard({fetchTickets, ...ticket}: TicketCardProps) {
           headers: {
               'Content-Type': 'application/json',
           },
+          credentials: 'include',
           body: JSON.stringify({ id, status: newStatus }),
       })
       .then((response) => response.json())

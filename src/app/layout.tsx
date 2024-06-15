@@ -31,7 +31,9 @@ export default function RootLayout({
 
   const session = async () => {
     try {
-      const response = await fetch('/api/verify');
+      const response = await fetch('/api/verify', {
+        credentials: 'include', 
+      });
       
       if(response.ok) {
         setHasToken(true);
