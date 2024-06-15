@@ -11,22 +11,23 @@ Z-Desk is a help desk application designed to streamline customer service and im
 
 ## Features
 
-- User authentication with JSON Web Tokens (JWT)
-- Admin sign in
-- Protected tickets that only admins can access
-- Ability to submit tickets
-- Ability to respond to tickets
-- Ability to change the status of tickets
-- Form Validation
-- Toast Notifications
-- Pagination
-- Loading spinner
+- Secure user authentication utilizing JSON Web Tokens (JWT)
+- Exclusive admin sign-in capabilities
+- Enhanced security with ticket access restricted to admins
+- Seamless ticket submission process
+- Efficient ticket response system
+- Dynamic ticket status updates
+- Robust form validation to ensure data integrity
+- User-friendly toast notifications for immediate feedback
+- Streamlined navigation with pagination
+- Loading spinner for improved user experience during data fetch
 
 ## Notes
-- `username`: admin
-- `password`: password123
-- There are 5 tickets per page, pagination splits up the tickets and the 6th one goes to page 2.
-- Shadcn/ui was used for the components and styling
+- Admin credentials: 
+- Username: `admin`
+- Password: `password123`
+- The application displays 5 tickets per page for optimal readability. Additional tickets are accessible via the pagination feature.
+- The user interface and styling leverage the `shadcn/ui` library for a modern and responsive design.
 
 
 ## Installation
