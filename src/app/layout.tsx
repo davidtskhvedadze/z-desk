@@ -31,9 +31,9 @@ export default function RootLayout({
 
   const session = async () => {
     try {
-      const response = await fetch('/api/session');
-      const data = await response.json();
-      if(data.message === 'Token exists') {
+      const response = await fetch('/api/verify');
+      
+      if(response.ok) {
         setHasToken(true);
       } else {
         setHasToken(false);
