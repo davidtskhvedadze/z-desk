@@ -27,7 +27,7 @@ Z-Desk is a help desk application designed to streamline customer service and im
 - Password: `password123`
 - The application displays 5 tickets per page for optimal readability. Additional tickets are accessible via the pagination feature
 - The user interface and styling leverage the `shadcn/ui` library for a modern and responsive design
-- When an administrator addresses a ticket, the response will be promptly displayed in the user's browser
+- When an administrator addresses a ticket, the response will be immediately logged in the browser's console
 
 
 ## Installation
