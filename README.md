@@ -1,8 +1,9 @@
 <h1 align="center">
     Z-Desk
 </h1>
-
+<div align="center">
 Z-Desk is a help desk application designed to streamline customer service and improve customer satisfaction.
+</div>
 
 ## Tech Stack
 <div align="center">
