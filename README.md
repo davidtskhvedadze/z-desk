@@ -36,6 +36,7 @@ Z-Desk is a help desk application designed to streamline customer service and im
 1. Clone the repository: `git clone https://github.com/yourusername/zealthy-help-desk.git`
 2. Access the directory: `cd zealthy-help-desk`
 3. Install the dependencies: `npm install`
-4. Start the server: `npm run dev`
-5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser
-6. Add `JWT_SECRET` & `DATABASE_URL` keys to `.env`
+4. Generate Prisma client: `npx prisma generate`
+5. Start the server: `npm run dev`
+6. Open [http://localhost:3000](http://localhost:3000) to view it in the browser
+7. Add `JWT_SECRET` & `DATABASE_URL` keys to `.env`
